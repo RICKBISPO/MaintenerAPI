@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class MaintenanceStatusService implements IMaintenanceStatusService {
 
@@ -34,7 +36,7 @@ public class MaintenanceStatusService implements IMaintenanceStatusService {
         var entity = maintenanceStatusRepository.findById(request.id())
                 .orElseThrow(MaintenanceStatusNotFoundException::new);
 
-        request.description().ifPresent(entity::setDescription);
+        Optional.ofNullable(request.description()).ifPresent(entity::setDescription);
 
         var response = maintenanceStatusRepository.save(entity);
 
@@ -61,7 +63,7 @@ public class MaintenanceStatusService implements IMaintenanceStatusService {
     @Override
     public ResponseEntity<?> delete(Long id) {
         var entity = maintenanceStatusRepository.findById(id)
-                .orElseThrow(MaintenanceNotFoundException::new);
+                .orElseThrow(MaintenanceStatusNotFoundException::new);
 
         maintenanceStatusRepository.delete(entity);
 

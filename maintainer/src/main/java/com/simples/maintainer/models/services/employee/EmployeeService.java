@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class EmployeeService implements IEmployeeService {
 
@@ -36,9 +38,9 @@ public class EmployeeService implements IEmployeeService {
         var entity = employeeRepository.findById(request.id())
                 .orElseThrow(EmployeeNotFoundException::new);
 
-        request.name().ifPresent(entity::setName);
-        request.position().ifPresent(entity::setPosition);
-        request.hireDate().ifPresent(entity::setHireDate);
+        Optional.ofNullable(request.name()).ifPresent(entity::setName);
+        Optional.ofNullable(request.position()).ifPresent(entity::setPosition);
+        Optional.ofNullable(request.hireDate()).ifPresent(entity::setHireDate);
 
         var response = employeeRepository.save(entity);
 
@@ -46,8 +48,12 @@ public class EmployeeService implements IEmployeeService {
     }
 
     @Override
-    public ResponseEntity<?> findAll() {
+    public ResponseEntity<?> findAll(String name) {
         var response = employeeRepository.findAll();
+
+        if (name != null) {
+            response = employeeRepository.findByNameContainingIgnoreCase(name);
+        }
 
         if (response.isEmpty()) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
@@ -65,7 +71,7 @@ public class EmployeeService implements IEmployeeService {
     @Override
     public ResponseEntity<?> delete(Long id) {
         var entity = employeeRepository.findById(id)
-                .orElseThrow(MaintenanceNotFoundException::new);
+                .orElseThrow(EmployeeNotFoundException::new);
 
         employeeRepository.delete(entity);
 

@@ -5,12 +5,13 @@ import com.simples.maintainer.dtos.maintenance.tool.UpdateMaintenanceToolRequest
 import com.simples.maintainer.models.services.maintenance.tool.IMaintenanceToolService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/maintenance-tools")
-@Tag(name = "maintenance-tools")
+@Tag(name = "maintenance-tools", description = "Operations related to maintenance tools")
 public class MaintenanceToolController {
 
     private final IMaintenanceToolService maintenanceToolService;
@@ -24,7 +25,7 @@ public class MaintenanceToolController {
             description = "Creates a new association between a maintenance and a tool with the provided data."
     )
     @PostMapping
-    public ResponseEntity<?> createMaintenanceTool(@RequestBody CreateMaintenanceToolRequest request) {
+    public ResponseEntity<?> createMaintenanceTool(@Valid @RequestBody CreateMaintenanceToolRequest request) {
         return maintenanceToolService.create(request);
     }
 
@@ -33,7 +34,7 @@ public class MaintenanceToolController {
             description = "Updates an existing maintenance-tool association with the provided data."
     )
     @PutMapping
-    public ResponseEntity<?> updateMaintenanceTool(@RequestBody UpdateMaintenanceToolRequest request) {
+    public ResponseEntity<?> updateMaintenanceTool(@Valid @RequestBody UpdateMaintenanceToolRequest request) {
         return maintenanceToolService.update(request);
     }
 

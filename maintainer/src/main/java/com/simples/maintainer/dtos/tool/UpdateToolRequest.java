@@ -1,11 +1,19 @@
 package com.simples.maintainer.dtos.tool;
 
+import com.simples.maintainer.validation.annotations.OptionalPastOrPresent;
+import jakarta.validation.constraints.NotNull;
+
 import java.time.LocalDate;
-import java.util.Optional;
 
 public record UpdateToolRequest(
+        @NotNull(message = "id must not be null")
         Long id,
-        Optional<String> name,
-        Optional<String> serialCode,
-        Optional<LocalDate> purchaseDate
+
+        String name,
+
+        String serialCode,
+
+        @OptionalPastOrPresent(message = "purchase date cannot be in the future")
+        LocalDate purchaseDate
 ) { }
+

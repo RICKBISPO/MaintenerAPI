@@ -1,8 +1,10 @@
 package com.simples.maintainer.dtos.maintenance.status;
 
-import java.util.Optional;
+import jakarta.validation.constraints.NotNull;
 
 public record UpdateMaintenanceStatusRequest(
+        @NotNull(message = "id must not be null")
         Long id,
-        Optional<String> description
+
+        String description
 ) { }

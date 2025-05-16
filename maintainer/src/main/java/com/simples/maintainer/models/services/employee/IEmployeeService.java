@@ -9,7 +9,7 @@ public interface IEmployeeService {
 
     ResponseEntity<?> create(CreateEmployeeRequest request);
     ResponseEntity<?> update(UpdateEmployeeRequest request);
-    ResponseEntity<?> findAll();
+    ResponseEntity<?> findAll(String name);
     ResponseEntity<?> findById(Long id);
     ResponseEntity<?> delete(Long id);
 

@@ -8,7 +8,7 @@ public interface IToolService {
 
     ResponseEntity<?> create(CreateToolRequest request);
     ResponseEntity<?> update(UpdateToolRequest request);
-    ResponseEntity<?> findAll();
+    ResponseEntity<?> findAll(Boolean filter);
     ResponseEntity<?> findById(Long id);
     ResponseEntity<?> delete(Long id);
 

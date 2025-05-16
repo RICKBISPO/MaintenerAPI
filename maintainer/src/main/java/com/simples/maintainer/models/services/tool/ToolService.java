@@ -2,13 +2,15 @@ package com.simples.maintainer.models.services.tool;
 
 import com.simples.maintainer.dtos.tool.CreateToolRequest;
 import com.simples.maintainer.dtos.tool.UpdateToolRequest;
-import com.simples.maintainer.exceptions.notfound.MaintenanceNotFoundException;
+import com.simples.maintainer.exceptions.AlreadyExistsException;
 import com.simples.maintainer.exceptions.notfound.ToolNotFoundException;
 import com.simples.maintainer.models.entities.Tool;
 import com.simples.maintainer.models.repositories.ToolRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class ToolService implements IToolService {
@@ -26,6 +28,8 @@ public class ToolService implements IToolService {
         entity.setSerialCode(request.serialCode());
         entity.setPurchaseDate(request.purchaseDate());
 
+        validateTool(entity);
+
         var response = toolRepository.save(entity);
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);
@@ -36,9 +40,11 @@ public class ToolService implements IToolService {
         var entity = toolRepository.findById(request.id())
                 .orElseThrow(ToolNotFoundException::new);
 
-        request.name().ifPresent(entity::setName);
-        request.serialCode().ifPresent(entity::setSerialCode);
-        request.purchaseDate().ifPresent(entity::setPurchaseDate);
+        Optional.ofNullable(request.name()).ifPresent(entity::setName);
+        Optional.ofNullable(request.serialCode()).ifPresent(entity::setSerialCode);
+        Optional.ofNullable(request.purchaseDate()).ifPresent(entity::setPurchaseDate);
+
+        validateTool(entity);
 
         var response = toolRepository.save(entity);
 
@@ -46,10 +52,12 @@ public class ToolService implements IToolService {
     }
 
     @Override
-    public ResponseEntity<?> findAll() {
+    public ResponseEntity<?> findAll(Boolean filter) {
         var response = toolRepository.findAll();
 
         if (response.isEmpty()) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+        if (filter) return new ResponseEntity<>(toolRepository.findToolFilter(), HttpStatus.OK);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -65,11 +73,21 @@ public class ToolService implements IToolService {
     @Override
     public ResponseEntity<?> delete(Long id) {
         var entity = toolRepository.findById(id)
-                .orElseThrow(MaintenanceNotFoundException::new);
+                .orElseThrow(ToolNotFoundException::new);
 
         toolRepository.delete(entity);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    public void validateTool(Tool tool) {
+        var response = toolRepository.findAll();
+        response.forEach(t -> {
+                if (!t.getId().equals(tool.getId()) && t.getSerialCode().equals(tool.getSerialCode())) {
+                    throw new AlreadyExistsException("serial code already exists");
+                }
+            }
+        );
     }
 
 }

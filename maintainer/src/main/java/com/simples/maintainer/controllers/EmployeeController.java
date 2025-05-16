@@ -5,12 +5,13 @@ import com.simples.maintainer.dtos.employee.UpdateEmployeeRequest;
 import com.simples.maintainer.models.services.employee.IEmployeeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/employees")
-@Tag(name = "employees")
+@Tag(name = "employees", description = "Operations related to employees")
 public class EmployeeController {
 
     private final IEmployeeService employeeService;
@@ -24,7 +25,7 @@ public class EmployeeController {
             description = "Creates a new employee with the provided request data."
     )
     @PostMapping
-    public ResponseEntity<?> createEmployee(@RequestBody CreateEmployeeRequest request) {
+    public ResponseEntity<?> createEmployee(@Valid @RequestBody CreateEmployeeRequest request) {
         return employeeService.create(request);
     }
 
@@ -33,17 +34,17 @@ public class EmployeeController {
             description = "Updates the details of an existing employee based on the request data."
     )
     @PutMapping
-    public ResponseEntity<?> updateEmployee(@RequestBody UpdateEmployeeRequest request) {
+    public ResponseEntity<?> updateEmployee(@Valid @RequestBody UpdateEmployeeRequest request) {
         return employeeService.update(request);
     }
 
     @Operation(
             summary = "Retrieve all employees",
-            description = "Returns a list of all employees."
+            description = "Retrieves a list of employees, optionally filtered by name."
     )
     @GetMapping
-    public ResponseEntity<?> findAllEmployees() {
-        return employeeService.findAll();
+    public ResponseEntity<?> findAllEmployees(@RequestParam(required = false) String name) {
+        return employeeService.findAll(name);
     }
 
     @Operation(

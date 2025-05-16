@@ -14,6 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class MaintenanceToolService implements IMaintenanceToolService {
 
@@ -55,7 +57,7 @@ public class MaintenanceToolService implements IMaintenanceToolService {
                 .findById(new MaintenanceToolId(request.maintenanceId(), request.toolId()))
                 .orElseThrow(MaintenanceToolNotFoundException::new);
 
-        request.quantityUsed().ifPresent(entity::setQuantityUsed);
+        Optional.ofNullable(request.quantityUsed()).ifPresent(entity::setQuantityUsed);
 
         var response = maintenanceToolRepository.save(entity);
 

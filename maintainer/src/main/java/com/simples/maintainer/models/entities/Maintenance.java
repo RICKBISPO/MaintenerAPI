@@ -2,6 +2,10 @@ package com.simples.maintainer.models.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,9 +24,11 @@ public class Maintenance {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_maintenance_id")
     @SequenceGenerator(name = "seq_maintenance_id", sequenceName = "seq_maintenance_id", allocationSize = 1)
+    @NotNull(message = "id must not be null")
     @Column(name = "maintenance_id", nullable = false)
     private Long id;
 
+    @NotBlank(message = "description must not be blank")
     @Column(name = "description", nullable = false)
     private String description;
 
@@ -32,10 +38,12 @@ public class Maintenance {
     @Column(name = "end_date", nullable = false)
     private LocalDate endDate;
 
+    @NotNull(message = "employee must not be null")
     @ManyToOne
     @JoinColumn(name = "employee_id", nullable = false)
     private Employee employee;
 
+    @NotNull(message = "status must not be null")
     @ManyToOne
     @JoinColumn(name = "status_id", nullable = false)
     private MaintenanceStatus status;

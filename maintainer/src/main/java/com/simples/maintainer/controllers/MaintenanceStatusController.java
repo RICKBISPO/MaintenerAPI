@@ -5,12 +5,14 @@ import com.simples.maintainer.dtos.maintenance.status.UpdateMaintenanceStatusReq
 import com.simples.maintainer.models.services.maintenance.status.IMaintenanceStatusService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/maintenance-statuses")
-@Tag(name = "maintenance-statuses")
+@Tag(name = "maintenance-statuses", description = "Operations related to maintenance statuses")
+
 public class MaintenanceStatusController {
 
     private final IMaintenanceStatusService maintenanceStatusService;
@@ -24,7 +26,7 @@ public class MaintenanceStatusController {
             description = "Creates a new maintenance status using the provided request data."
     )
     @PostMapping
-    public ResponseEntity<?> createMaintenanceStatus(@RequestBody CreateMaintenanceStatusRequest request) {
+    public ResponseEntity<?> createMaintenanceStatus(@Valid @RequestBody CreateMaintenanceStatusRequest request) {
         return maintenanceStatusService.create(request);
     }
 
@@ -33,7 +35,7 @@ public class MaintenanceStatusController {
             description = "Updates an existing maintenance status with the provided data."
     )
     @PutMapping
-    public ResponseEntity<?> updateMaintenanceStatus(@RequestBody UpdateMaintenanceStatusRequest request) {
+    public ResponseEntity<?> updateMaintenanceStatus(@Valid @RequestBody UpdateMaintenanceStatusRequest request) {
         return maintenanceStatusService.update(request);
     }
 

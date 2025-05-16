@@ -5,12 +5,13 @@ import com.simples.maintainer.dtos.tool.UpdateToolRequest;
 import com.simples.maintainer.models.services.tool.IToolService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/tools")
-@Tag(name = "tools")
+@Tag(name = "tools", description = "Operations related to tools")
 public class ToolController {
 
     private final IToolService toolService;
@@ -24,7 +25,7 @@ public class ToolController {
             description = "Creates a new tool with the provided request data."
     )
     @PostMapping
-    public ResponseEntity<?> createTool(@RequestBody CreateToolRequest request) {
+    public ResponseEntity<?> createTool(@Valid @RequestBody CreateToolRequest request) {
         return toolService.create(request);
     }
 
@@ -33,17 +34,17 @@ public class ToolController {
             description = "Updates the information of an existing tool using the provided data."
     )
     @PutMapping
-    public ResponseEntity<?> updateTool(@RequestBody UpdateToolRequest request) {
+    public ResponseEntity<?> updateTool(@Valid @RequestBody UpdateToolRequest request) {
         return toolService.update(request);
     }
 
     @Operation(
             summary = "Get all tools",
-            description = "Retrieves a list of all tools in the system."
+            description = "Retrieves a list of tools, optionally filtered."
     )
     @GetMapping
-    public ResponseEntity<?> findAllTools() {
-        return toolService.findAll();
+    public ResponseEntity<?> findAllTools(@RequestParam Boolean filter) {
+        return toolService.findAll(filter);
     }
 
     @Operation(

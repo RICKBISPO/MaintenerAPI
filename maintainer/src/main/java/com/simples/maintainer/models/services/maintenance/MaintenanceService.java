@@ -5,14 +5,21 @@ import com.simples.maintainer.dtos.maintenance.UpdateMaintenanceRequest;
 import com.simples.maintainer.exceptions.notfound.EmployeeNotFoundException;
 import com.simples.maintainer.exceptions.notfound.MaintenanceNotFoundException;
 import com.simples.maintainer.exceptions.notfound.MaintenanceStatusNotFoundException;
+import com.simples.maintainer.models.entities.Employee;
 import com.simples.maintainer.models.entities.Maintenance;
+import com.simples.maintainer.models.entities.MaintenanceStatus;
 import com.simples.maintainer.models.repositories.EmployeeRepository;
 import com.simples.maintainer.models.repositories.MaintenanceRepository;
 import com.simples.maintainer.models.repositories.MaintenanceStatusRepository;
+import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
+@Slf4j
 @Service
 public class MaintenanceService implements IMaintenanceService {
 
@@ -55,17 +62,19 @@ public class MaintenanceService implements IMaintenanceService {
         var entity = maintenanceRepository.findById(request.id())
                 .orElseThrow(MaintenanceNotFoundException::new);
 
-        request.description().ifPresent(entity::setDescription);
-        request.startDate().ifPresent(entity::setStartDate);
-        request.endDate().ifPresent(entity::setEndDate);
-        request.employeeId().ifPresent(id ->
-                employeeRepository.findById(id)
-                        .orElseThrow(EmployeeNotFoundException::new)
-        );
-        request.statusId().ifPresent(id ->
-                maintenanceStatusRepository.findById(id)
-                        .orElseThrow(MaintenanceStatusNotFoundException::new)
-        );
+        Optional.ofNullable(request.description()).ifPresent(entity::setDescription);
+        Optional.ofNullable(request.startDate()).ifPresent(entity::setStartDate);
+        Optional.ofNullable(request.endDate()).ifPresent(entity::setEndDate);
+        Optional.ofNullable(request.employeeId()).ifPresent(id -> {
+            var employee = employeeRepository.findById(id)
+                    .orElseThrow(EmployeeNotFoundException::new);
+            entity.setEmployee(employee);
+        });
+        Optional.ofNullable(request.statusId()).ifPresent(id -> {
+            var status = maintenanceStatusRepository.findById(id)
+                    .orElseThrow(MaintenanceStatusNotFoundException::new);
+            entity.setStatus(status);
+        });
 
         var response = maintenanceRepository.save(entity);
 

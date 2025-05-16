@@ -1,11 +1,20 @@
 package com.simples.maintainer.dtos.employee;
 
+import com.simples.maintainer.validation.annotations.OptionalPastOrPresent;
+import jakarta.validation.constraints.NotNull;
+
 import java.time.LocalDate;
-import java.util.Optional;
+
 
 public record UpdateEmployeeRequest(
+        @NotNull(message = "{entity.id}")
         Long id,
-        Optional<String> name,
-        Optional<String> position,
-        Optional<LocalDate> hireDate
+
+        String name,
+
+        String position,
+
+        @OptionalPastOrPresent(message = "{employee.hire-date.past-or-present}")
+        LocalDate hireDate
 ) { }
+
