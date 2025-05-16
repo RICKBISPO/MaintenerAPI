@@ -12,7 +12,7 @@ A MaintenerAPI permite realizar operações de CRUD (Create, Read, Update, Delet
 
 ## ⚙️ Configuração do Ambiente
 
-### Configuração do Banco de Dados Oracle
+### 2. Configuração do Banco de Dados Oracle
 O banco de dados utilizado está disponível na pasta [database](https://github.com/RICKBISPO/MaintenerAPI/tree/main/database) do repositório principal do projeto.
 Para conectar a aplicação ao banco de dados Oracle, configure as propriedades abaixo no arquivo `application.properties`:
 
@@ -22,4 +22,29 @@ spring.datasource.username=[username]
 spring.datasource.password=[password]
 ```
 
+## 📡 Acessando a API
+
+A API estará disponível em:
+
+```
+http://localhost:8080/api
+```
+
+A documentação interativa (Swagger UI) estará disponível em:
+
+```
+http://localhost:8080/swagger-ui.html
+```
+
+## 🧪 Testando a API
+
+Você pode utilizar ferramentas como:
+
+- [Postman](https://www.postman.com/)
+- [Insomnia](https://insomnia.rest/)
+- Ou diretamente pelo Swagger UI
+
+## 👨‍💻 Contribuição
+
+Sinta-se à vontade para contribuir com sugestões, melhorias e correções. Basta fazer um fork do projeto e abrir um Pull Request. 😉
 
