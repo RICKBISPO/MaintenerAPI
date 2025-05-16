@@ -12,7 +12,7 @@ A MaintenerAPI permite realizar operações de CRUD (Create, Read, Update, Delet
 
 ## ⚙️ Configuração do Ambiente
 
-### 2. Configuração do Banco de Dados Oracle
+### Configuração do Banco de Dados Oracle
 O banco de dados utilizado está disponível na pasta [database](https://github.com/RICKBISPO/MaintenerAPI/tree/main/database) do repositório principal do projeto.
 Para conectar a aplicação ao banco de dados Oracle, configure as propriedades abaixo no arquivo `application.properties`:
 
