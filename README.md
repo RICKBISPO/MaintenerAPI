@@ -1,5 +1,5 @@
 # 🛠️ MaintenerAPI
-A **MaintenerAPI** é uma aplicação RESTful desenvolvida com **Spring Framework**, voltada para o gerenciamento de registros de manutenção, status, funcionários, ferramentas e suas associações. 
+A **MaintenerAPI** é uma aplicação RESTful desenvolvida com **Spring Boot**, voltada para o gerenciamento de registros de manutenção, status, funcionários, ferramentas e suas associações. 
 
 ## 📌 Visão Geral
 A MaintenerAPI permite realizar operações de CRUD (Create, Read, Update, Delete) sobre os seguintes recursos:
