@@ -6,14 +6,14 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 public record UpdateToolRequest(
-        @NotNull(message = "id must not be null")
+        @NotNull(message = "{entity.id.not-null}")
         Long id,
 
         String name,
 
         String serialCode,
 
-        @OptionalPastOrPresent(message = "purchase date cannot be in the future")
+        @OptionalPastOrPresent(message = "{tool.purchase-date.past-or-present}")
         LocalDate purchaseDate
 ) { }
 

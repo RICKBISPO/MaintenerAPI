@@ -1,5 +1,6 @@
 package com.simples.maintainer.controllers;
 
+import com.auth0.jwt.exceptions.JWTCreationException;
 import com.simples.maintainer.dtos.error.ApiError;
 import com.simples.maintainer.exceptions.AlreadyExistsException;
 import com.simples.maintainer.exceptions.notfound.NotFoundException;

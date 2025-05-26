@@ -8,19 +8,19 @@ import jakarta.validation.constraints.PastOrPresent;
 import java.time.LocalDate;
 
 public record CreateMaintenanceRequest(
-        @NotBlank(message = "description must not be blank")
+        @NotBlank(message = "{entity.description.not-blank}")
         String description,
 
-        @PastOrPresent(message = "start date cannot be in the future")
+        @PastOrPresent(message = "{maintenance.start-date.past-or-present}")
         LocalDate startDate,
 
-        @FutureOrPresent(message = "end date cannot be in the past")
+        @FutureOrPresent(message = "{maintenance.end-date.future-or-present}")
         LocalDate endDate,
 
-        @NotNull(message = "employee id must not be null")
+        @NotNull(message = "{employee.id.not-null}")
         Long employeeId,
 
-        @NotNull(message = "status id must not be null")
+        @NotNull(message = "{maintenance-status.id.not-null}")
         Long statusId
 ) { }
 

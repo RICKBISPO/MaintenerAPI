@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 
 public record UpdateEmployeeRequest(
-        @NotNull(message = "{entity.id}")
+        @NotNull(message = "{entity.id.not-null}")
         Long id,
 
         String name,

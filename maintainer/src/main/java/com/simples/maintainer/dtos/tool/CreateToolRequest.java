@@ -6,12 +6,12 @@ import jakarta.validation.constraints.PastOrPresent;
 import java.time.LocalDate;
 
 public record CreateToolRequest(
-        @NotBlank(message = "name must not be blank")
+        @NotBlank(message = "{entity.name.not-blank}")
         String name,
 
-        @NotBlank(message = "serial code must not be blank")
+        @NotBlank(message = "{tool.serial-code.not-blank}")
         String serialCode,
 
-        @PastOrPresent(message = "purchase date cannot be in the future")
+        @PastOrPresent(message = "{tool.purchase-date.past-or-present}")
         LocalDate purchaseDate
 ) { }

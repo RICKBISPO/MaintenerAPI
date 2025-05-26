@@ -4,13 +4,13 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 public record CreateMaintenanceToolRequest(
-        @NotNull(message = "maintenanceId must not be null")
+        @NotNull(message = "{employee.id.not-null}")
         Long maintenanceId,
 
-        @NotNull(message = "toolId must not be null")
+        @NotNull(message = "{tool.id.not-null}")
         Long toolId,
 
-        @Positive(message = "quantity used must be greater than zero")
+        @Positive(message = "{maintenance-tool.quantity-used.positive}")
         Integer quantityUsed
 ) { }
 

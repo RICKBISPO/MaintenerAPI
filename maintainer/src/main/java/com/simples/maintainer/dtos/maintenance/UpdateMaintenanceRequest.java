@@ -7,15 +7,15 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 public record UpdateMaintenanceRequest(
-        @NotNull(message = "id must not be null")
+        @NotNull(message = "{entity.id.not-null}")
         Long id,
 
         String description,
 
-        @OptionalPastOrPresent(message = "start date cannot be in the future")
+        @OptionalPastOrPresent(message = "{maintenance.start-date.past-or-present}")
         LocalDate startDate,
 
-        @OptionalFutureOrPresent(message = "end date cannot be in the past")
+        @OptionalFutureOrPresent(message = "{maintenance.end-date.future-or-present}")
         LocalDate endDate,
 
         Long employeeId,

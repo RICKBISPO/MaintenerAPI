@@ -4,13 +4,13 @@ import com.simples.maintainer.validation.annotations.OptionalPositive;
 import jakarta.validation.constraints.NotNull;
 
 public record UpdateMaintenanceToolRequest(
-        @NotNull(message = "maintenanceId must not be null")
+        @NotNull(message = "{employee.id.not-null}")
         Long maintenanceId,
 
-        @NotNull(message = "toolId must not be null")
+        @NotNull(message = "{tool.id.not-null}")
         Long toolId,
 
-        @OptionalPositive(message = "quantity used must be greater than zero")
+        @OptionalPositive(message = "{maintenance-tool.quantity-used.positive}")
         Integer quantityUsed
 ) { }
 

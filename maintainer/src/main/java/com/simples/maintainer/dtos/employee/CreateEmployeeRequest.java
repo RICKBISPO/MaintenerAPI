@@ -6,7 +6,7 @@ import jakarta.validation.constraints.PastOrPresent;
 import java.time.LocalDate;
 
 public record CreateEmployeeRequest(
-        @NotBlank(message = "{employee.name.not-blank}")
+        @NotBlank(message = "{entity.name.not-blank}")
         String name,
 
         @NotBlank(message = "{employee.position.not-blank}")
