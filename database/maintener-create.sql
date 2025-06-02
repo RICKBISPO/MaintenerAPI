@@ -1,3 +1,10 @@
+CREATE TABLE user_auth (
+    user_id NUMBER PRIMARY KEY,
+    login VARCHAR2(50) UNIQUE NOT NULL,
+    password VARCHAR2(255) NOT NULL,
+    role VARCHAR2(20) NOT NULL
+);
+
 CREATE TABLE employee (
     employee_id NUMBER PRIMARY KEY,
     name VARCHAR2(100) NOT NULL,
@@ -36,6 +43,13 @@ CREATE TABLE maintenance_tool (
     FOREIGN KEY (maintenance_id) REFERENCES maintenance(maintenance_id),
     FOREIGN KEY (tool_id) REFERENCES tool(tool_id)
 );
+
+CREATE SEQUENCE seq_user_id
+    START WITH 20
+    INCREMENT BY 1
+    NOCACHE
+    NOCYCLE;
+
 
 CREATE SEQUENCE seq_employee_id
     START WITH 20
