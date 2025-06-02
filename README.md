@@ -23,6 +23,26 @@ spring.datasource.username=[username]
 spring.datasource.password=[password]
 ```
 
+### 3. Variável de Ambiente JWT_SECRET
+
+Para que o JWT funcione corretamente, você precisa definir a variável de ambiente `JWT_SECRET`. Exemplo em sistemas Unix/Linux/Mac:
+
+```bash
+export JWT_SECRET=sua_chave_secreta_aqui
+```
+
+No Windows (CMD):
+
+```cmd
+set JWT_SECRET=sua_chave_secreta_aqui
+```
+
+Ou você pode definir diretamente no `application.properties` (não recomendado para produção):
+
+```properties
+jwt.secret=sua_chave_secreta_aqui
+```
+
 ## 📡 Acessando a API
 
 A API estará disponível em:
