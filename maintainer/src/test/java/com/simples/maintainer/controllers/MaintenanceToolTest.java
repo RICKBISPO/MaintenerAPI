@@ -89,6 +89,7 @@ public class MaintenanceToolTest {
         var result = mockMvc.perform(
                 MockMvcRequestBuilders
                         .put("/api/maintenance-tools")
+                        .header("Authorization", "Bearer " + testFactory.getToken())
                         .content(content)
                         .contentType(MediaType.APPLICATION_JSON)
         ).andReturn();
@@ -104,6 +105,7 @@ public class MaintenanceToolTest {
                         .get("/api/maintenance-tools/{maintenanceId}/{toolId}",
                                 maintenanceToolId.getMaintenanceId(),
                                 maintenanceToolId.getToolId())
+                        .header("Authorization", "Bearer " + testFactory.getToken())
                         .contentType(MediaType.APPLICATION_JSON)
         ).andReturn();
 
@@ -120,6 +122,7 @@ public class MaintenanceToolTest {
                         .delete("/api/maintenance-tools/{maintenanceId}/{toolId}",
                                 maintenanceToolId.getMaintenanceId(),
                                 maintenanceToolId.getToolId())
+                        .header("Authorization", "Bearer " + testFactory.getToken())
                         .contentType(MediaType.APPLICATION_JSON)
         ).andReturn();
 

@@ -62,6 +62,7 @@ public class EmployeeTest {
         var result = mockMvc.perform(
                 MockMvcRequestBuilders
                         .put("/api/employees")
+                        .header("Authorization", "Bearer " + testFactory.getToken())
                         .content(content)
                         .contentType(MediaType.APPLICATION_JSON)
         ).andReturn();
@@ -75,6 +76,7 @@ public class EmployeeTest {
         var result = mockMvc.perform(
                         MockMvcRequestBuilders
                                 .get("/api/employees/{id}", employeeId)
+                                .header("Authorization", "Bearer " + testFactory.getToken())
                                 .contentType(MediaType.APPLICATION_JSON)
         ).andReturn();
 
@@ -87,6 +89,7 @@ public class EmployeeTest {
         var result = mockMvc.perform(
                 MockMvcRequestBuilders
                         .delete("/api/employees/{id}", employeeId)
+                        .header("Authorization", "Bearer " + testFactory.getToken())
                         .contentType(MediaType.APPLICATION_JSON)
         ).andReturn();
 

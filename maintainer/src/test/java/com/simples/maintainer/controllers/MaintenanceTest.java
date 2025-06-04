@@ -77,6 +77,7 @@ public class MaintenanceTest {
         var result = mockMvc.perform(
                 MockMvcRequestBuilders
                         .put("/api/maintenances")
+                        .header("Authorization", "Bearer " + testFactory.getToken())
                         .content(content)
                         .contentType(MediaType.APPLICATION_JSON)
         ).andReturn();
@@ -90,6 +91,7 @@ public class MaintenanceTest {
         var result = mockMvc.perform(
                 MockMvcRequestBuilders
                         .get("/api/maintenances/{id}", maintenanceId)
+                        .header("Authorization", "Bearer " + testFactory.getToken())
                         .contentType(MediaType.APPLICATION_JSON)
         ).andReturn();
 
@@ -102,6 +104,7 @@ public class MaintenanceTest {
         var result = mockMvc.perform(
                 MockMvcRequestBuilders
                         .delete("/api/maintenances/{id}", maintenanceId)
+                        .header("Authorization", "Bearer " + testFactory.getToken())
                         .contentType(MediaType.APPLICATION_JSON)
         ).andReturn();
 

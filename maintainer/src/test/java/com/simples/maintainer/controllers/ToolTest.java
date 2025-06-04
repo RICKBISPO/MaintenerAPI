@@ -63,6 +63,7 @@ public class ToolTest {
         var result = mockMvc.perform(
                 MockMvcRequestBuilders
                         .put("/api/tools")
+                        .header("Authorization", "Bearer " + testFactory.getToken())
                         .content(content)
                         .contentType(MediaType.APPLICATION_JSON)
         ).andReturn();
@@ -76,6 +77,7 @@ public class ToolTest {
         var result = mockMvc.perform(
                 MockMvcRequestBuilders
                         .get("/api/tools/{id}", toolId)
+                        .header("Authorization", "Bearer " + testFactory.getToken())
                         .contentType(MediaType.APPLICATION_JSON)
         ).andReturn();
 
@@ -90,6 +92,7 @@ public class ToolTest {
         var result = mockMvc.perform(
                 MockMvcRequestBuilders
                         .delete("/api/tools/{id}", toolId)
+                        .header("Authorization", "Bearer " + testFactory.getToken())
                         .contentType(MediaType.APPLICATION_JSON)
         ).andReturn();
 
